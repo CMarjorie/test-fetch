@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import './App.css';
+import chargement from "./img/loading.gif";
 
 const url = 'https://api.thecatapi.com/v1/images/search';
 const pageNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -11,6 +12,8 @@ function App() {
   const [numberPerPage, setNumberPerPage] = useState(9);
   //création pagination 
   const [currentPage, setCurrentPage] = useState(0);
+  //création chargement
+  const [isLoading, setLoadingState] = useState(false);
 
   //Dépendance du tableau vide pour lancement au démarrage de la page sans autre dépendance
   // useEffect(fetchData, []);
@@ -21,12 +24,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
         <div className="Input">
           <label for="current_page">Choisissez le nombre d'éléments à afficher par page</label>
           <input type="text" name="current_page" onChange={(e) => handleChange(e)}></input>
         </div>
+          {isLoading && <img src={chargement} className="Loading-gif" alt="chargement GIF"/>}
         <div class="Pictures">
           {pictures.map((picture, index) => (
             <img className="Picture" key={index} src={picture.url} alt="chat" />
@@ -42,8 +44,11 @@ function App() {
   );
 
     function fetchData(){
+      setLoadingState(true);
+      setPictures([]);
       axios.get(`${url}?limit=${numberPerPage}&page=${currentPage}`).then(response => {
         setPictures(response.data);
+        setLoadingState(false);
       });
     }
 
