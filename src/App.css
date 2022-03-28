@@ -1,3 +1,20 @@
+.Loading-gif {
+  width: 80px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.Input {
+  margin: auto;
+  width: 900px;
+  margin-top: 25px;
+}
+
+.Input label {
+  margin-right: 15px;
+}
+
 .Pictures {
   margin: auto;
   display: grid;
