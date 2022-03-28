@@ -44,10 +44,14 @@ function App() {
   );
 
     function fetchData(){
+      //on valide l'affichage du loading
       setLoadingState(true);
+      //on instancie un tableau d'images vide pendant le chargement
       setPictures([]);
       axios.get(`${url}?limit=${numberPerPage}&page=${currentPage}`).then(response => {
+        //On remplit le tableau d'images avec les datas reçues de l'appel à l'API
         setPictures(response.data);
+        //On reset l'état du loading à false pour cacher l'image de loading
         setLoadingState(false);
       });
     }
